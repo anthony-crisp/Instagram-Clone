@@ -7,7 +7,14 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.create(post_params)
-    redirect_to @post
+    if @post.save
+      flash[:success] = "Your post has been created."
+      redirect_to @post
+    else
+      alert = "Posts require an image, please select an igame and try again."
+      flash[:alert] = alert
+      render :new
+    end
   end
 
   def show
